@@ -4,10 +4,13 @@ import java.util.Random;
 public abstract class Plane {
 	protected int ID, flyingTime, takeOffTime, landingTime;
 	protected static int planeID;
-	protected boolean takingOff; 
+	protected int takingOff; 
 
 	//remove if wrong
 	private Random statusgenerator;
+	
+	public static final int TAKEOFF = 0;
+	public static final int LANDING = 1;
 
 	//constructor for Light aircrafts and commercial planes
 	public Plane(int flyingTime, int takeOffTime, int landingTime){
@@ -28,17 +31,17 @@ public abstract class Plane {
 	}
 
 	//remove if wrong
-	public void statusGenerator(){
-		//add seed?
-		statusgenerator = new Random();
-		int digit = statusgenerator.nextInt(1);
-		if(digit == 0){
-			takingOff = false;	
-		}
-		else if(digit == 1){
-			takingOff = true;	
-		}
-	}
+//	public void statusGenerator(){
+//		//add seed?
+//		statusgenerator = new Random();
+//		int digit = statusgenerator.nextInt(1);
+//		if(digit == 0){
+//			takingOff = false;	
+//		}
+//		else if(digit == 1){
+//			takingOff = true;	
+//		}
+//	}
 
 	//accessor methods
 	public int getFlyingTime(){
