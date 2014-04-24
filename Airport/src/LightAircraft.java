@@ -2,8 +2,8 @@
 public class LightAircraft extends Plane {
 
 	//same take off and landing times as commercial aircraft
-	public LightAircraft(int flyingTime){
-		super(flyingTime, 4, 6);
+	public LightAircraft(int flyingTime, int takingOff){
+		super(flyingTime, 4, 6, takingOff);
 	}
 
 	public int getFlyingTime(){
@@ -21,13 +21,15 @@ public class LightAircraft extends Plane {
 	public int getID(){
 		return ID;
 	}
-
-	public void setTakeOff(boolean takingOff){
-		this.takingOff = takingOff;
-	}
-
 	
-	public boolean isTakingOff (){
+	public void tick(){
+		super.tick();
+		
+		
+	}
+	
+	public boolean isTakingOff(){
+		
 		return super.isTakingOff();
 	}
 

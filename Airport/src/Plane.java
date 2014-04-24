@@ -4,30 +4,27 @@ import java.util.Random;
 public abstract class Plane {
 	protected int ID, flyingTime, takeOffTime, landingTime;
 	protected static int planeID;
-	protected int takingOff; 
-
-	//remove if wrong
-	private Random statusgenerator;
+	protected int takingOff;
+	protected int waitingTime = 0;
 	
-	public static final int TAKEOFF = 0;
-	public static final int LANDING = 1;
 
 	//constructor for Light aircrafts and commercial planes
-	public Plane(int flyingTime, int takeOffTime, int landingTime){
+	public Plane(int flyingTime, int takeOffTime, int landingTime, int takingOff){
 		ID = planeID++;
 		this.flyingTime = flyingTime;
 		this.takeOffTime = takeOffTime;
 		this.landingTime = landingTime;
-		statusGenerator();
+		this.takingOff = takingOff;
+		
 	}
 
 	//constructor for the Glider
-	public Plane(int takeOffTime, int landingTime){
+	public Plane(int takeOffTime, int landingTime, int takingOff){
 		ID = planeID++;
 		this.takeOffTime = takeOffTime;
 		this.landingTime = landingTime;
 		flyingTime = Integer.MAX_VALUE;
-		statusGenerator();
+		this.takingOff = takingOff;
 	}
 
 	//remove if wrong
@@ -59,14 +56,29 @@ public abstract class Plane {
 	public int getID(){
 		return ID;
 	}
+	public int getWaitingTime(){
+		
+		return waitingTime;
+	}
+	
+	public boolean isTakingOff(){
+		if (takingOff == 0){
+		return true;}
+		else{
+			
+		return false;	
+		}
+	}
 
 	//use this method if mines wrong
 	//public void setTakeOff(boolean takingOff){
 	//this.takingOff = takingOff;
 	//}
-
-	public boolean isTakingOff(){
-		return takingOff;
+	
+	
+	public void tick(){
+		waitingTime++;
+		
 	}
 
 	/**

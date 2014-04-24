@@ -1,8 +1,8 @@
 
 public class Glider extends Plane{
 	
-	public Glider(){
-		super(6, 8);
+	public Glider(int takingOff){
+		super(6, 8, takingOff);
 	}
 	
 	public int getFlyingTime(){
@@ -20,17 +20,12 @@ public class Glider extends Plane{
 	public int getID(){
 		return ID;
 	}
-
-	public void setTakeOff(boolean takingOff){
-		this.takingOff = takingOff;
+	
+	public void tick(){
+		super.tick();
+		
+		
 	}
-
-
-
-	public boolean isTakingOff (){
-		return super.isTakingOff();
-	}
-
 
 	/**
 	 * Returns a String representation of the Commercial Plane.

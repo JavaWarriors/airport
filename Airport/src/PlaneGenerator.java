@@ -8,8 +8,8 @@ public class PlaneGenerator {
 	private double commercialProb;
 	private double lightAircraftProb;
 	private double gliderProb;
-	private double takeoffProb;
-	private double landingProb;
+	private static final double TAKEOFF_PROB = 0.5;
+	private static final double LANDING_PROB = 0.5;
 	/*
 	 * Generator class that creates planes with given probabilities and
 	 * their directions in specified proportions.
@@ -30,14 +30,11 @@ public class PlaneGenerator {
 	 * @param landingProb probability of going straight on
 	 */
 	public PlaneGenerator(Random gen,
-			double commercialProb, double lightAircraftProb, double gliderProb,
-			double takeoffProb, double landingProb){
+			double commercialProb, double lightAircraftProb, double gliderProb){
 		this.gen = gen;
 		this.commercialProb = commercialProb;
 		this.gliderProb = gliderProb;
 		this.lightAircraftProb = lightAircraftProb;
-		this.landingProb = landingProb;
-		this.takeoffProb = takeoffProb;
 		
 	}
 	/**
@@ -47,39 +44,44 @@ public class PlaneGenerator {
 	public Plane generatePlane(){
 		double planeProb = gen.nextDouble();;
 		double planeDirection = gen.nextDouble();
-		int flyingTime = gen.nextInt(40) + 40;
-		int direction = 0;
+		int flyingTime = 0;
+		int takingOff = 0;
 		plane = null;
 		//Assign direction
-		if(planeDirection < takeoffProb){
-			//assign direction, need to change the plane class for diection
-			
+		if(planeDirection < TAKEOFF_PROB){
+			//assign direction, need to change the plane class for direction
+			takingOff = 0;
 			
 		}
-		else if (planeDirection < takeoffProb + landingProb){
-			//assign direction, need to change the plane class for diection
-			
+		else if (planeDirection < TAKEOFF_PROB + LANDING_PROB){
+			//assign direction, need to change the plane class for direction
+			takingOff = 1;
 		}
 		//Create plane
 		if(planeProb < commercialProb){
-			plane = new CommercialPlane(flyingTime); 
+			flyingTime = gen.nextInt(40) + 40;
+			plane = new CommercialPlane(flyingTime, takingOff); 
 			
 		}
 		else if (planeProb < commercialProb + lightAircraftProb){
-			
-			plane = new LightAircraft(20);
+			flyingTime = gen.nextInt(10) + 10;
+			plane = new LightAircraft(flyingTime, takingOff);
 			
 		}
 		else if (planeProb < commercialProb + lightAircraftProb + gliderProb){
 			
-			plane = new Glider();
+			plane = new Glider(takingOff);
 		}
 		
 		return plane;
 
 	}
-
-	public void setCommercialProbability(double p){
+	
+	public void tick(){
+		plane.tick();
+		
 		
 	}
+
+
 }
